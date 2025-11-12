@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@hospcare/ui": ["packages/ui/src/index.ts"],
+      "@hospcare/types": ["packages/types/src/index.ts"],
+      "@hospcare/config": ["packages/config/src/index.ts"],
+      "@hospcare/db": ["packages/db/src/index.ts"]
+    },
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
