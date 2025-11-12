@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:3000/api';
 
-interface ApiResponse {
+type ApiResponse = {
   token: string;
   user: {
     id: number;
@@ -12,7 +12,7 @@ interface ApiResponse {
     email: string;
     role: 'patient';
   };
-}
+};
 
 export default function PatientLoginPage() {
   const [email, setEmail] = useState('');
