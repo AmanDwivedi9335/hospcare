@@ -2,10 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@hospcare/ui": ["packages/ui/src/index.ts"],
-      "@hospcare/types": ["packages/types/src/index.ts"],
-      "@hospcare/config": ["packages/config/src/index.ts"],
-      "@hospcare/db": ["packages/db/src/index.ts"]
+      "@hospcare/db": ["packages/db/src/index.ts"],
+      "@hospcare/db/*": ["packages/db/src/*"],
+      "@hospcare/packages": ["packages/src/index.ts"]
     },
     "composite": true,
     "declarationMap": true,
@@ -22,7 +21,6 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2022",
-    "customConditions": ["@hospcare/source"]
+    "target": "es2022"
   }
 }
