@@ -5,29 +5,29 @@
   "sourceRoot": "apps/web-patient/src",
   "targets": {
     "build": {
-      "executor": "@nx/next:build",
-      "outputs": ["{workspaceRoot}/dist/apps/web-patient"],
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/.next"],
       "options": {
-        "root": "apps/web-patient",
-        "outputPath": "dist/apps/web-patient"
+        "command": "next build",
+        "cwd": "apps/web-patient",
+        "forwardAllArgs": true
       }
     },
     "dev": {
-      "executor": "@nx/next:dev",
+      "executor": "nx:run-commands",
       "options": {
-        "root": "apps/web-patient"
+        "command": "next dev",
+        "cwd": "apps/web-patient",
+        "forwardAllArgs": true
       }
     },
     "serve": {
-      "executor": "@nx/next:serve",
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "web-patient:build",
-        "dev": true
-      },
-      "configurations": {
-        "production": {
-          "dev": false
-        }
+        "command": "next start",
+        "cwd": "apps/web-patient",
+        "forwardAllArgs": true
       }
     }
   },
