@@ -6,11 +6,19 @@ interface AuthUser {
   name: string;
   email: string;
   role: LoginRole;
+  organization?: string;
 }
 
 interface StoredUser extends AuthUser {
   password: string;
 }
+
+type RegisterSuperAdminPayload = {
+  name: string;
+  email: string;
+  password: string;
+  organization?: string;
+};
 
 @Injectable()
 export class AuthService {
@@ -28,6 +36,7 @@ export class AuthService {
       email: 'lauren.super@hospcare.local',
       role: 'superadmin',
       password: 'supersecure',
+      organization: 'HospCare HQ',
     },
     {
       id: 3,
@@ -59,6 +68,40 @@ export class AuthService {
 
     return {
       token: `fake-token-${user.role}-${user.id}`,
+      user: safeUser,
+    };
+  }
+
+  async registerSuperAdmin(payload: RegisterSuperAdminPayload) {
+    const { name, email, password, organization } = payload;
+
+    if (!name || !email || !password) {
+      throw new BadRequestException('Name, email and password are required');
+    }
+
+    const duplicate = this.users.find(
+      (candidate) => candidate.email.toLowerCase() === email.toLowerCase(),
+    );
+
+    if (duplicate) {
+      throw new BadRequestException('An account with this email already exists');
+    }
+
+    const newUser: StoredUser = {
+      id: this.users.length + 1,
+      name,
+      email,
+      password,
+      role: 'superadmin',
+      organization,
+    };
+
+    this.users.push(newUser);
+
+    const { password: _password, ...safeUser } = newUser;
+
+    return {
+      message: 'Super admin registered successfully',
       user: safeUser,
     };
   }

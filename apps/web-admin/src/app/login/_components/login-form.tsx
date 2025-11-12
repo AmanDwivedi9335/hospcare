@@ -1,6 +1,8 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import Link from 'next/link';
+import { FormEvent, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type LoginRole = 'staff' | 'superadmin';
 
@@ -17,22 +19,35 @@ type ApiResponse = {
     name: string;
     email: string;
     role: 'staff' | 'superadmin' | 'patient';
+    organization?: string;
   };
 };
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:3000/api';
 
 export function LoginForm({ role, title, redirectHint }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const onboardingMessage =
+    searchParams.get('onboarded') === '1'
+      ? 'Your super admin workspace is ready. Sign in to continue.'
+      : null;
+
+  useEffect(() => {
+    const emailFromParams = searchParams.get('email');
+    if (emailFromParams) {
+      setEmail((current) => (current ? current : emailFromParams));
+    }
+  }, [searchParams]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    setStatus(null);
     setError(null);
 
     try {
@@ -50,7 +65,10 @@ export function LoginForm({ role, title, redirectHint }: Props) {
       }
 
       const data = (await response.json()) as ApiResponse;
-      setStatus(`Welcome back ${data.user.name}! Your token: ${data.token}`);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('hospcare.auth', JSON.stringify(data));
+      }
+      router.push('/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unexpected error');
     } finally {
@@ -94,7 +112,18 @@ export function LoginForm({ role, title, redirectHint }: Props) {
           </button>
         </form>
         <p className="mt-4 text-sm text-slate-600">{redirectHint}</p>
-        {status && <p className="mt-4 rounded bg-green-100 p-2 text-green-700">{status}</p>}
+        {role === 'superadmin' && (
+          <p className="mt-2 text-sm text-slate-600">
+            First time here?{' '}
+            <Link href="/signup/superadmin" className="font-semibold text-blue-600 hover:text-blue-700">
+              Create your control center
+            </Link>
+            .
+          </p>
+        )}
+        {onboardingMessage && (
+          <p className="mt-4 rounded bg-emerald-100 p-2 text-emerald-700">{onboardingMessage}</p>
+        )}
         {error && <p className="mt-4 rounded bg-red-100 p-2 text-red-700">{error}</p>}
       </div>
     </main>
