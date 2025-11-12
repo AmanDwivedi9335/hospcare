@@ -5,29 +5,29 @@
   "sourceRoot": "apps/web-admin/src",
   "targets": {
     "build": {
-      "executor": "@nx/next:build",
-      "outputs": ["{workspaceRoot}/dist/apps/web-admin"],
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/.next"],
       "options": {
-        "root": "apps/web-admin",
-        "outputPath": "dist/apps/web-admin"
+        "command": "next build",
+        "cwd": "apps/web-admin",
+        "forwardAllArgs": true
       }
     },
     "dev": {
-      "executor": "@nx/next:dev",
+      "executor": "nx:run-commands",
       "options": {
-        "root": "apps/web-admin"
+        "command": "next dev",
+        "cwd": "apps/web-admin",
+        "forwardAllArgs": true
       }
     },
     "serve": {
-      "executor": "@nx/next:serve",
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "web-admin:build",
-        "dev": true
-      },
-      "configurations": {
-        "production": {
-          "dev": false
-        }
+        "command": "next start",
+        "cwd": "apps/web-admin",
+        "forwardAllArgs": true
       }
     }
   },
