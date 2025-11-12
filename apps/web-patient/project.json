@@ -1,0 +1,35 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "web-patient",
+  "projectType": "application",
+  "sourceRoot": "apps/web-patient/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{workspaceRoot}/dist/apps/web-patient"],
+      "options": {
+        "root": "apps/web-patient",
+        "outputPath": "dist/apps/web-patient"
+      }
+    },
+    "dev": {
+      "executor": "@nx/next:dev",
+      "options": {
+        "root": "apps/web-patient"
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:serve",
+      "options": {
+        "buildTarget": "web-patient:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "dev": false
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "name": "packages",
+  "projectType": "library",
+  "sourceRoot": "packages/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{workspaceRoot}/dist/packages"],
+      "options": {
+        "outputPath": "dist/packages",
+        "tsConfig": "packages/tsconfig.lib.json",
+        "main": "packages/src/index.ts",
+        "assets": ["packages/README.md"]
+      }
+    }
+  },
+  "tags": []
+}

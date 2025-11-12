@@ -1,0 +1,35 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "web-admin",
+  "projectType": "application",
+  "sourceRoot": "apps/web-admin/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{workspaceRoot}/dist/apps/web-admin"],
+      "options": {
+        "root": "apps/web-admin",
+        "outputPath": "dist/apps/web-admin"
+      }
+    },
+    "dev": {
+      "executor": "@nx/next:dev",
+      "options": {
+        "root": "apps/web-admin"
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:serve",
+      "options": {
+        "buildTarget": "web-admin:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "dev": false
+        }
+      }
+    }
+  },
+  "tags": []
+}
