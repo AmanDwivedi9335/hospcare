@@ -1,462 +1,539 @@
+import Link from 'next/link';
 
+const stats = [
+  {
+    label: 'Hospitals launched',
+    value: '42',
+    helper: 'across 7 regions',
+  },
+  {
+    label: 'Avg. onboarding time',
+    value: '36 hrs',
+    helper: 'from sign-up to go-live',
+  },
+  {
+    label: 'Clinician satisfaction',
+    value: '94%',
+    helper: 'after the first month',
+  },
+];
 
+const roleCards = [
+  {
+    name: 'Super Admin',
+    tag: 'Platform HQ',
+    description:
+      'Spin up hospitals in minutes, assign subscription bundles, and monitor tenant-wide compliance from a single control plane.',
+    highlights: [
+      'Create and manage hospital tenants with custom domains',
+      'Toggle modules per subscription in real time',
+      'Audit activity streams and automate compliance alerts',
+    ],
+    cta: { label: 'Launch Control Center', href: '#super-admin' },
+    accent: 'from-sky-500/20 via-sky-500/5 to-transparent',
+  },
+  {
+    name: 'Doctor Workspace',
+    tag: 'Clinical Productivity',
+    description:
+      'Everything a clinician needs: smart rounding lists, AI-assisted charting, and collaborative care plans that stay in sync.',
+    highlights: [
+      'Unified patient timeline with orders, labs, and vitals',
+      'Task routing to nurses, pharmacists, and support teams',
+      'Telehealth visit launcher with built-in coding tips',
+    ],
+    cta: { label: 'Preview Doctor Login', href: '#modules' },
+    accent: 'from-emerald-500/20 via-emerald-500/5 to-transparent',
+  },
+  {
+    name: 'Staff Command Center',
+    tag: 'Operations',
+    description:
+      'Empower front-desk, billing, and ward managers with automated flows, real-time occupancy, and inventory visibility.',
+    highlights: [
+      'Drag-and-drop scheduling with waitlist automation',
+      'Smart procurement with reorder alerts and vendor SLAs',
+      'Revenue guardrails with automated denial insights',
+    ],
+    cta: { label: 'Explore Staff Portal', href: '#operations' },
+    accent: 'from-amber-500/20 via-amber-500/5 to-transparent',
+  },
+  {
+    name: 'Patient Companion',
+    tag: 'Engagement',
+    description:
+      'A personalized experience for patients to manage appointments, bills, prescriptions, and care-team messaging securely.',
+    highlights: [
+      'Check-in from mobile with insurance verification',
+      'Payment plans and wallet integrations',
+      'HIPAA-compliant chat and visit summaries',
+    ],
+    cta: { label: 'Try Patient Experience', href: '#engagement' },
+    accent: 'from-fuchsia-500/20 via-fuchsia-500/5 to-transparent',
+  },
+  {
+    name: 'Nursing Console',
+    tag: 'Care Coordination',
+    description:
+      'Unit-based huddles, medication administration records, and escalation protocols tailored to each hospital’s workflows.',
+    highlights: [
+      'Real-time bed board with acuity scoring',
+      'eMAR with barcode scanning and adverse event prevention',
+      'Handoff summaries with voice dictation support',
+    ],
+    cta: { label: 'Review Nursing Tools', href: '#operations' },
+    accent: 'from-indigo-500/20 via-indigo-500/5 to-transparent',
+  },
+  {
+    name: 'Analytics Studio',
+    tag: 'Insights',
+    description:
+      'Surface executive dashboards, financial KPIs, and operational pulse checks that can be shared across tenants securely.',
+    highlights: [
+      'Cross-tenant benchmarking with anonymized cohorts',
+      'Drag-and-drop storyboards for leadership reviews',
+      'Embedded predictive models for census and supply needs',
+    ],
+    cta: { label: 'Open Data Room', href: '#insights' },
+    accent: 'from-cyan-500/20 via-cyan-500/5 to-transparent',
+  },
+];
+
+const modules = [
+  {
+    name: 'Accounts & Billing',
+    icon: '💳',
+    description:
+      'Revenue cycle automation with payer-specific rules, payment reminders, and integrated ledger exports.',
+    features: [
+      'Multi-entity chart of accounts with role-based controls',
+      'Denial prevention playbooks and audit trails',
+      'Patient wallet, POS, and instalment plans',
+    ],
+    accent: 'from-sky-500/30 via-sky-500/5 to-slate-900/60',
+  },
+  {
+    name: 'Clinical',
+    icon: '🩺',
+    description:
+      'End-to-end patient journey from triage to discharge with AI-assisted documentation and care coordination.',
+    features: [
+      'Structured visit templates across specialties',
+      'FHIR-native interoperability and e-prescriptions',
+      'Care team messaging with escalation logic',
+    ],
+    accent: 'from-emerald-500/30 via-emerald-500/5 to-slate-900/60',
+  },
+  {
+    name: 'Operations',
+    icon: '🏥',
+    description:
+      'Optimize staffing, theatre utilization, and supply chain with predictive insights and automated workflows.',
+    features: [
+      'Capacity planning with real-time acuity scoring',
+      'Roster automation and labor compliance checks',
+      'Inventory lifecycle with supplier collaboration',
+    ],
+    accent: 'from-amber-500/30 via-amber-500/5 to-slate-900/60',
+  },
+  {
+    name: 'Engagement',
+    icon: '💬',
+    description:
+      'Hyper-personalized patient outreach, feedback loops, and marketing automations tied to clinical outcomes.',
+    features: [
+      'Journey builder with segmentation and cohorts',
+      'NPS, CAHPS, and service recovery dashboards',
+      'Omnichannel reminders with WhatsApp & SMS',
+    ],
+    accent: 'from-fuchsia-500/30 via-fuchsia-500/5 to-slate-900/60',
+  },
+  {
+    name: 'Research',
+    icon: '🔬',
+    description:
+      'Manage studies, consent, and data extraction while keeping privacy guardrails for every tenant.',
+    features: [
+      'Protocol libraries with IRB workflows',
+      'De-identified data sandboxes and notebooks',
+      'Automated investigator onboarding',
+    ],
+    accent: 'from-indigo-500/30 via-indigo-500/5 to-slate-900/60',
+  },
+  {
+    name: 'Marketplace',
+    icon: '🧩',
+    description:
+      'Extend your hospital with connected apps, partner services, and device integrations curated by HospCare.',
+    features: [
+      'App directory with consent-based provisioning',
+      'IoT gateway for bedside and wearable data',
+      'Contract and SLA monitoring',
+    ],
+    accent: 'from-cyan-500/30 via-cyan-500/5 to-slate-900/60',
+  },
+];
+
+const onboardingSteps = [
+  {
+    title: 'Blueprint your hospital',
+    description:
+      'Import legacy data or start fresh with our guided setup. Define locations, specialties, and compliance policies per tenant.',
+    deliverables: ['Custom domains & branding', 'Policy guardrails & retention rules'],
+  },
+  {
+    title: 'Choose subscription modules',
+    description:
+      'Bundle modules that match your hospital’s needs. Super admins can mix-and-match or schedule upgrades per billing cycle.',
+    deliverables: ['Module toggles with preview sandboxes', 'Usage-based and flat-fee billing options'],
+  },
+  {
+    title: 'Invite teams securely',
+    description:
+      'Provision doctors, staff, and partners with SSO, MFA, and Just-In-Time role assignments that adapt as teams evolve.',
+    deliverables: ['Directory sync & HRIS connectors', 'Granular permissions down to record type'],
+  },
+  {
+    title: 'Monitor, iterate, scale',
+    description:
+      'Dashboards surface tenant KPIs, SLAs, and adoption metrics. Push playbooks, nudges, and automation across your network.',
+    deliverables: ['Predictive alerts & anomaly detection', 'Cross-tenant benchmarking'],
+  },
+];
+
+const automationHighlights = [
+  {
+    title: 'Workflow Builder',
+    body: 'Drag-and-drop automations that trigger when claims are denied, labs are delayed, or discharge packets are incomplete.',
+  },
+  {
+    title: 'Compliance Engine',
+    body: 'Regional templates ensure HIPAA, NABH, and GDPR readiness with continuous auditing and evidence snapshots.',
+  },
+  {
+    title: 'Insights Broadcast',
+    body: 'Schedule digest emails or Teams/Slack digests so every role receives the metrics that matter most.',
+  },
+];
 
 export default function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.tailwind file.
-   */
   return (
-    <div>
-      
-      
-    <div className="wrapper">
-      <div className="container">
-        <div id="welcome">
-          <h1>
-            <span> Hello there, </span>
-            Welcome @hospcare/web-admin 👋
-          </h1>
-        </div>
-
-        <div id="hero" className="rounded">
-          <div className="text-container">
-            <h2>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                />
-              </svg>
-              <span>You&apos;re up and running</span>
-            </h2>
-            <a href="#commands"> What&apos;s next? </a>
-          </div>
-          <div className="logo-container">
-            <svg
-              fill="currentColor"
-              role="img"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M11.987 14.138l-3.132 4.923-5.193-8.427-.012 8.822H0V4.544h3.691l5.247 8.833.005-3.998 3.044 4.759zm.601-5.761c.024-.048 0-3.784.008-3.833h-3.65c.002.059-.005 3.776-.003 3.833h3.645zm5.634 4.134a2.061 2.061 0 0 0-1.969 1.336 1.963 1.963 0 0 1 2.343-.739c.396.161.917.422 1.33.283a2.1 2.1 0 0 0-1.704-.88zm3.39 1.061c-.375-.13-.8-.277-1.109-.681-.06-.08-.116-.17-.176-.265a2.143 2.143 0 0 0-.533-.642c-.294-.216-.68-.322-1.18-.322a2.482 2.482 0 0 0-2.294 1.536 2.325 2.325 0 0 1 4.002.388.75.75 0 0 0 .836.334c.493-.105.46.36 1.203.518v-.133c-.003-.446-.246-.55-.75-.733zm2.024 1.266a.723.723 0 0 0 .347-.638c-.01-2.957-2.41-5.487-5.37-5.487a5.364 5.364 0 0 0-4.487 2.418c-.01-.026-1.522-2.39-1.538-2.418H8.943l3.463 5.423-3.379 5.32h3.54l1.54-2.366 1.568 2.366h3.541l-3.21-5.052a.7.7 0 0 1-.084-.32 2.69 2.69 0 0 1 2.69-2.691h.001c1.488 0 1.736.89 2.057 1.308.634.826 1.9.464 1.9 1.541a.707.707 0 0 0 1.066.596zm.35.133c-.173.372-.56.338-.755.639-.176.271.114.412.114.412s.337.156.538-.311c.104-.231.14-.488.103-.74z" />
-            </svg>
-          </div>
-        </div>
-
-        <div id="middle-content">
-          <div id="learning-materials" className="rounded shadow">
-            <h2>Learning materials</h2>
-            <a
-              href="https://nx.dev/getting-started/intro?utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-              className="list-item-link"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
-              </svg>
-              <span>
-                Documentation
-                <span> Everything is in there </span>
+    <main className="relative overflow-hidden pb-24">
+      <div className="pointer-events-none absolute inset-x-0 -top-1/3 -z-10 h-[720px] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),_transparent_60%)]"></div>
+      <div className="mx-auto max-w-6xl px-6 pt-16 sm:px-10 lg:px-12">
+        <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-950 p-10 sm:p-16">
+          <div className="absolute inset-y-0 right-0 -mr-24 hidden w-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.35),_transparent_65%)] blur-3xl sm:block" />
+          <div className="relative grid gap-12 md:grid-cols-[1.25fr,1fr]">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-sky-400/10 px-4 py-1 text-sm font-medium text-sky-200">
+                SaaS for Modern Hospitals
               </span>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://nx.dev/blog/?utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-              className="list-item-link"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                />
-              </svg>
-              <span>
-                Blog
-                <span> Changelog, features & events </span>
-              </span>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://www.youtube.com/@NxDevtools/videos?utm_source=nx-project&sub_confirmation=1"
-              target="_blank"
-              rel="noreferrer"
-              className="list-item-link"
-            >
-              <svg
-                role="img"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>YouTube</title>
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-              </svg>
-              <span>
-                YouTube channel
-                <span> Nx Show, talks & tutorials </span>
-              </span>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://nx.dev/react-tutorial/1-code-generation?utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-              className="list-item-link"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
-                />
-              </svg>
-              <span>
-                Interactive tutorials
-                <span> Create an app, step-by-step </span>
-              </span>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://nxplaybook.com/?utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-              className="list-item-link"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                />
-              </svg>
-              <span>
-                Video courses
-                <span> Nx custom courses </span>
-              </span>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-          </div>
-          <div id="other-links">
-            <a
-              id="nx-console"
-              className="button-pill rounded shadow"
-              href="https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console&utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg
-                fill="currentColor"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Visual Studio Code</title>
-                <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
-              </svg>
-              <span>
-                Install Nx Console for VSCode
-                <span>The official VSCode extension for Nx.</span>
-              </span>
-            </a>
-            <a
-                id="nx-console-jetbrains"
-                className="button-pill rounded shadow"
-                href="https://plugins.jetbrains.com/plugin/21060-nx-console"
-                target="_blank"
-                rel="noreferrer"
-              >
-              <svg
-                  height="48"
-                  width="48"
-                  viewBox="20 20 60 60"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="m22.5 22.5h60v60h-60z" />
-                  <g fill="#fff">
-                    <path d="m29.03 71.25h22.5v3.75h-22.5z" />
-                    <path d="m28.09 38 1.67-1.58a1.88 1.88 0 0 0 1.47.87c.64 0 1.06-.44 1.06-1.31v-5.98h2.58v6a3.48 3.48 0 0 1 -.87 2.6 3.56 3.56 0 0 1 -2.57.95 3.84 3.84 0 0 1 -3.34-1.55z" />
-                    <path d="m36 30h7.53v2.19h-5v1.44h4.49v2h-4.42v1.49h5v2.21h-7.6z" />
-                    <path d="m47.23 32.29h-2.8v-2.29h8.21v2.27h-2.81v7.1h-2.6z" />
-                    <path d="m29.13 43.08h4.42a3.53 3.53 0 0 1 2.55.83 2.09 2.09 0 0 1 .6 1.53 2.16 2.16 0 0 1 -1.44 2.09 2.27 2.27 0 0 1 1.86 2.29c0 1.61-1.31 2.59-3.55 2.59h-4.44zm5 2.89c0-.52-.42-.8-1.18-.8h-1.29v1.64h1.24c.79 0 1.25-.26 1.25-.81zm-.9 2.66h-1.57v1.73h1.62c.8 0 1.24-.31 1.24-.86 0-.5-.4-.87-1.27-.87z" />
-                    <path d="m38 43.08h4.1a4.19 4.19 0 0 1 3 1 2.93 2.93 0 0 1 .9 2.19 3 3 0 0 1 -1.93 2.89l2.24 3.27h-3l-1.88-2.84h-.87v2.84h-2.56zm4 4.5c.87 0 1.39-.43 1.39-1.11 0-.75-.54-1.12-1.4-1.12h-1.44v2.26z" />
-                    <path d="m49.59 43h2.5l4 9.44h-2.79l-.67-1.69h-3.63l-.67 1.69h-2.71zm2.27 5.73-1-2.65-1.06 2.65z" />
-                    <path d="m56.46 43.05h2.6v9.37h-2.6z" />
-                    <path d="m60.06 43.05h2.42l3.37 5v-5h2.57v9.37h-2.26l-3.53-5.14v5.14h-2.57z" />
-                    <path d="m68.86 51 1.45-1.73a4.84 4.84 0 0 0 3 1.13c.71 0 1.08-.24 1.08-.65 0-.4-.31-.6-1.59-.91-2-.46-3.53-1-3.53-2.93 0-1.74 1.37-3 3.62-3a5.89 5.89 0 0 1 3.86 1.25l-1.26 1.84a4.63 4.63 0 0 0 -2.62-.92c-.63 0-.94.25-.94.6 0 .42.32.61 1.63.91 2.14.46 3.44 1.16 3.44 2.91 0 1.91-1.51 3-3.79 3a6.58 6.58 0 0 1 -4.35-1.5z" />
-                  </g>
-                </svg>
-                <span>
-                  Install Nx Console for JetBrains
-                  <span>
-                    Available for WebStorm, Intellij IDEA Ultimate and more!
-                  </span>
-                </span>
-              </a>
-            <div id="nx-cloud" className="rounded shadow">
-              <div>
-                <svg id="nx-cloud-logo" role="img" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="transparent" viewBox="0 0 24 24">
-                  <path strokeWidth="2" d="M23 3.75V6.5c-3.036 0-5.5 2.464-5.5 5.5s-2.464 5.5-5.5 5.5-5.5 2.464-5.5 5.5H3.75C2.232 23 1 21.768 1 20.25V3.75C1 2.232 2.232 1 3.75 1h16.5C21.768 1 23 2.232 23 3.75Z" />
-                  <path strokeWidth="2" d="M23 6v14.1667C23 21.7307 21.7307 23 20.1667 23H6c0-3.128 2.53867-5.6667 5.6667-5.6667 3.128 0 5.6666-2.5386 5.6666-5.6666C17.3333 8.53867 19.872 6 23 6Z" />
-                </svg>
-                <h2>
-                  Nx Cloud
-                  <span>
-                    Enable faster CI & better DX
-                  </span>
-                </h2>
-              </div>
-              <p>
-                You can activate distributed tasks executions and caching by
-                running:
+              <h1 className="mt-6 text-4xl font-semibold sm:text-5xl lg:text-6xl">
+                Launch hospital networks in days, not quarters.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg text-slate-200/80">
+                HospCare HQ delivers a multi-tenant hospital management platform with curated workspaces for every role. Select
+                the modules you need, invite teams, and keep operations, finances, and patient experiences in sync across your
+                entire ecosystem.
               </p>
-              <pre>nx connect</pre>
-              <a
-                href="https://nx.app/?utm_source=nx-project"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {' '}
-                What is Nx Cloud?{' '}
-              </a>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="#super-admin"
+                  className="inline-flex items-center gap-2 rounded-full bg-sky-400 px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-lg shadow-sky-400/40 hover:bg-sky-300"
+                >
+                  Get started as Super Admin
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <Link
+                  href="#modules"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 hover:border-white/40"
+                >
+                  Explore module catalog
+                </Link>
+              </div>
             </div>
-            <a
-              id="nx-repo"
-              className="button-pill rounded shadow"
-              href="https://github.com/nrwl/nx?utm_source=nx-project"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg
-                fill="currentColor"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-              </svg>
-              <span>
-                Nx is open source
-                <span> Love Nx? Give us a star! </span>
-              </span>
-            </a>
+            <div className="glass relative rounded-3xl p-8">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium text-slate-300">Tenant snapshot</p>
+                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                  Live sync
+                </span>
+              </div>
+              <div className="mt-6 space-y-6">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Current tenant</p>
+                  <h3 className="mt-2 text-2xl font-semibold">Aurora Medical Group</h3>
+                  <p className="mt-1 text-sm text-slate-400">6 locations • 480 clinicians • Modules: Clinical, Accounts, Engagement</p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs text-slate-400">Net promoter score</p>
+                    <p className="mt-2 text-3xl font-semibold text-emerald-300">78</p>
+                    <p className="text-xs text-emerald-200">↑ 6 pts vs last quarter</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs text-slate-400">Claims auto-approval</p>
+                    <p className="mt-2 text-3xl font-semibold text-sky-300">91%</p>
+                    <p className="text-xs text-sky-200">Powered by Accounts module</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Upcoming automation</p>
+                  <p className="mt-2 text-sm text-slate-200/80">
+                    Trigger onboarding workflow for the new oncology wing once the Operations module is activated on April 12.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          <dl className="mt-14 grid gap-6 text-sm text-slate-300 sm:grid-cols-3">
+            {stats.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
+                <dt>{item.label}</dt>
+                <dd className="mt-2 text-3xl font-semibold text-white">{item.value}</dd>
+                <p className="mt-1 text-xs text-slate-400">{item.helper}</p>
+              </div>
+            ))}
+          </dl>
+        </section>
 
-        <div id="commands" className="rounded shadow">
-          <h2>Next steps</h2>
-          <p>Here are some things you can do with Nx:</p>
-          <details>
-            <summary>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+        <section className="mt-20 space-y-10">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-sky-200">Role-based workspaces</p>
+              <h2 className="mt-2 text-3xl sm:text-4xl">Purpose-built logins for every hospital persona.</h2>
+              <p className="mt-4 max-w-3xl text-base text-slate-300">
+                Each portal is tuned for the day-to-day reality of clinicians, back-office teams, and patients. Super admins keep
+                everything aligned while tenants enjoy a seamless, branded experience.
+              </p>
+            </div>
+            <Link
+              href="#modules"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-sky-200"
+            >
+              Map modules to workspaces
+              <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <div className="card-grid">
+            {roleCards.map((card) => (
+              <article
+                key={card.name}
+                className={`relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-8 transition-transform duration-300 hover:-translate-y-1 hover:border-white/20`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              Add UI library
-            </summary>
-            <pre>
-              <span># Generate UI lib</span>
-              nx g @nx/next:library ui
-              <span># Add a component</span>
-              nx g @nx/next:component ui/src/lib/button
-            </pre>
-          </details>
-          <details>
-            <summary>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              View project details
-            </summary>
-            <pre>nx show project @hospcare/web-admin --web</pre>
-          </details>
-          <details>
-            <summary>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              View interactive project graph
-            </summary>
-            <pre>nx graph</pre>
-          </details>
-          <details>
-            <summary>
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              Run affected commands
-            </summary>
-            <pre>
-              <span># see what&apos;s been affected by changes</span>
-              nx affected:graph
-              <span># run tests for current changes</span>
-              nx affected:test
-              <span># run e2e tests for current changes</span>
-              nx affected:e2e
-            </pre>
-          </details>
-        </div>
+                <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${card.accent}`} />
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-slate-200/80">{card.tag}</span>
+                </div>
+                <h3 className="mt-5 text-2xl font-semibold">{card.name}</h3>
+                <p className="mt-3 text-sm text-slate-200/80">{card.description}</p>
+                <ul className="mt-6 space-y-3 text-sm text-slate-200/70">
+                  {card.highlights.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-sky-300" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={card.cta.href}
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-sky-200 hover:text-sky-100"
+                >
+                  {card.cta.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <p id="love">
-          Carefully crafted with
-          <svg
-            fill="currentColor"
-            stroke="none"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
-        </p>
+        <section id="modules" className="mt-20 space-y-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold text-emerald-200">Module-based subscriptions</p>
+            <h2 className="mt-2 text-3xl sm:text-4xl">Turn on the modules your tenant subscribes to.</h2>
+            <p className="mt-4 text-base text-slate-300">
+              HospCare’s modular architecture lets every hospital pay only for what they need. Modules can be bundled, scheduled
+              for future activation, or trialled in sandboxes before release.
+            </p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {modules.map((module) => (
+              <article
+                key={module.name}
+                className={`relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${module.accent} p-8`}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-2xl">
+                  <span role="img" aria-hidden="true">
+                    {module.icon}
+                  </span>
+                </div>
+                <h3 className="mt-5 text-2xl font-semibold text-white">{module.name}</h3>
+                <p className="mt-3 text-sm text-slate-200/80">{module.description}</p>
+                <ul className="mt-6 space-y-3 text-sm text-slate-200/70">
+                  {module.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/50" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="#pricing"
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-100 hover:text-white"
+                >
+                  Add to subscription
+                  <span aria-hidden="true">+</span>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="super-admin" className="mt-20 space-y-10">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold text-cyan-200">Super admin cockpit</p>
+              <h2 className="mt-2 text-3xl sm:text-4xl">Launch, manage, and scale tenants without engineering tickets.</h2>
+              <p className="mt-4 text-base text-slate-300">
+                Your super admin console centralizes tenant creation, subscription orchestration, and compliance monitoring.
+                Workflows help you move fast while staying audit-ready.
+              </p>
+            </div>
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 px-5 py-2.5 text-sm font-semibold text-cyan-200 hover:border-cyan-300"
+            >
+              View sample automation runbook
+              <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <div className="relative">
+            <div className="absolute left-5 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/40 to-transparent sm:block" />
+            <div className="space-y-8">
+              {onboardingSteps.map((step, index) => (
+                <div key={step.title} className="glass relative rounded-3xl p-6 sm:ml-12 sm:p-8">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-400/20 text-lg font-semibold text-cyan-200">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-semibold">{step.title}</h3>
+                      <p className="mt-2 text-sm text-slate-200/80">{step.description}</p>
+                      <ul className="mt-4 flex flex-wrap gap-3 text-xs text-slate-200/70">
+                        {step.deliverables.map((deliverable) => (
+                          <li key={deliverable} className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                            {deliverable}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="operations" className="mt-20 space-y-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold text-violet-200">Automation library</p>
+            <h2 className="mt-2 text-3xl sm:text-4xl">Automate cross-functional workflows with guardrails.</h2>
+            <p className="mt-4 text-base text-slate-300">
+              Bring finance, clinical, and operational teams together using reusable automations. Trigger them manually or based
+              on events across your EHR, LIS, PACS, HRIS, or billing systems.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {automationHighlights.map((item) => (
+              <article key={item.title} className="glass rounded-3xl p-6">
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm text-slate-200/80">{item.body}</p>
+                <Link href="#" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-violet-200 hover:text-violet-100">
+                  Browse playbooks
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="engagement" className="mt-20 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/70 via-slate-900/60 to-slate-950">
+          <div className="grid gap-10 px-10 py-14 md:grid-cols-[1.2fr,1fr]">
+            <div>
+              <p className="text-sm font-semibold text-emerald-200">Security & trust</p>
+              <h2 className="mt-2 text-3xl sm:text-4xl">Enterprise-grade foundation patients and clinicians trust.</h2>
+              <p className="mt-4 text-base text-slate-300">
+                SOC 2 Type II, HIPAA, GDPR, and regional compliance come standard. Tenant isolation, encrypted data lakes, and
+                zero-trust access keep sensitive information secure without sacrificing usability.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-slate-200/80">
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-200">✓</span>
+                  Dedicated data residency per tenant and lifecycle retention policies.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-200">✓</span>
+                  Federated SSO, SCIM provisioning, and adaptive MFA across every workspace.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-200">✓</span>
+                  Built-in audit explorer with immutable event timelines and exports.
+                </li>
+              </ul>
+            </div>
+            <div className="glass rounded-3xl p-8">
+              <h3 className="text-xl font-semibold text-white">Experience the patient companion</h3>
+              <p className="mt-3 text-sm text-slate-200/80">
+                Branded digital front door with appointment booking, self check-in, secure messaging, and bill pay in one place.
+              </p>
+              <div className="mt-6 space-y-4 text-sm text-slate-200/70">
+                <p>
+                  <span className="font-semibold text-white">Adaptive journeys:</span> personalize outreach based on diagnosis,
+                  location, or care plan milestones.
+                </p>
+                <p>
+                  <span className="font-semibold text-white">Care circle access:</span> invite family or caregivers with
+                  granular permissions and consent tracking.
+                </p>
+                <p>
+                  <span className="font-semibold text-white">Multilingual UI:</span> 14 languages with region-aware terminology.
+                </p>
+              </div>
+              <Link
+                href="#"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-400/20 px-5 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-400/30"
+              >
+                View patient journey demo
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="insights" className="mt-20 rounded-3xl border border-white/10 bg-slate-900/70 p-10 text-center">
+          <p className="text-sm font-semibold text-sky-200">Ready to modernize hospital operations?</p>
+          <h2 className="mt-4 text-3xl sm:text-4xl">Launch your first tenant with HospCare HQ today.</h2>
+          <p className="mt-4 text-base text-slate-300">
+            Start with a 30-day pilot, onboard key roles, and expand modules as teams fall in love with the experience. Our
+            implementation partners and success team handle the heavy lifting.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Link
+              href="mailto:hello@hospcare.com"
+              className="inline-flex items-center gap-2 rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-sky-400/30 hover:bg-sky-300"
+            >
+              Talk to sales
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-white/40"
+            >
+              Launch sandbox tenant
+            </Link>
+          </div>
+        </section>
       </div>
-    </div>
-  
-    </div>
+    </main>
   );
-};
+}
