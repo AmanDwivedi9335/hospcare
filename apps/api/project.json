@@ -36,6 +36,13 @@
           "buildTarget": "api:build:production"
         }
       }
+    },
+    "dev": {
+      "executor": "@nx/node:node",
+      "options": {
+        "buildTarget": "api:build",
+        "watch": true
+      }
     }
   },
   "tags": []

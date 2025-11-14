@@ -15,6 +15,7 @@
   },
   "nxCloudId": "69105f0dd943220035ab2da8",
   "plugins": [
+    "@nx/node/plugin",
     {
       "plugin": "@nx/js/typescript",
       "options": {
@@ -41,6 +42,10 @@
       }
     }
   ],
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "packages"
+  },
   "generators": {
     "@nx/react": {
       "library": {
