@@ -30,10 +30,11 @@
     ]
   },
   "include": [
+    "../../dist/apps/web-patient/.next/types/**/*.ts",
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../../dist/apps/web-patient/.next/types/**/*.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
