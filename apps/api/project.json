@@ -47,10 +47,10 @@
       }
     },
     "dev": {
-      "executor": "nx:run-commands",
+      "executor": "@nx/node:node",
       "options": {
-        "command": "node tools/dev/api-dev-server.mjs",
-        "cwd": "{workspaceRoot}"
+        "buildTarget": "api:build",
+        "watch": true
       }
     }
   },
