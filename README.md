@@ -2,9 +2,18 @@
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+This repository hosts the Hospcare web applications plus the NestJS API.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Running the API locally
+
+1. Install dependencies with `npm install` (or `pnpm install`).
+2. Run `npx nx dev api` to start the API in watch mode.
+
+The `dev` target now compiles the API directly with TypeScript and restarts the Node process automatically whenever the compiled output changes, so the task works even if Nx cannot load the legacy `@nx/node` executor. Static assets under `apps/api/src/assets` are copied across on every restart, so updates are reflected without restarting the watcher.
+
+> **Tip:** If you only need a production-style binary, build once with `npx nx build api` and then run `npx nx serve api` to execute the compiled bundle from `dist/apps/api`.
+
+> **Note:** Run `npx prisma generate` after editing the Prisma schema so the dev server can load the generated client that the Nest app expects at runtime.
 
 ## Finish your CI setup
 

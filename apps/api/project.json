@@ -24,16 +24,25 @@
       }
     },
     "serve": {
-      "executor": "@nx/node:node",
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self",
+          "params": "forward"
+        }
+      ],
       "options": {
-        "buildTarget": "api:build"
+        "command": "node dist/apps/api/main.js",
+        "cwd": "{workspaceRoot}"
       },
       "configurations": {
-        "development": {
-          "buildTarget": "api:build"
-        },
         "production": {
-          "buildTarget": "api:build:production"
+          "options": {
+            "env": {
+              "NODE_ENV": "production"
+            }
+          }
         }
       }
     },
